@@ -1,11 +1,11 @@
-fn main(){
-    let number = 5;
+fn main() {
+    let s = String::from("Hello"); // Allocates memory on the heap
+    println!("message from heap: {}", s);
 
-    if rem = x % 3;
+    let mut s = 1234.to_string(); // Note: rules regarding mutability still apply
+    println!("message from heap: {}", s);
 
-    if rem == 0 {
-        println!("Divisible");
-    } else if rem == 1 {
-        println!("Remainder = {}", rem);
-    }
-} 
+    // Strings are mutable
+    s.push_str("4567");
+    println!("My string number: {}", s);
+}  
