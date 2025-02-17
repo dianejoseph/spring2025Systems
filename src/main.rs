@@ -1,11 +1,32 @@
-fn main() {
-    let s = String::from("Hello"); // Allocates memory on the heap
-    println!("message from heap: {}", s);
+// Assignment 3
 
-    let mut s = 1234.to_string(); // Note: rules regarding mutability still apply
-    println!("message from heap: {}", s);
+fn check_guess(guess: i32, secret: i32) -> i32 {
+    if guess == secret {
+        0
+    } else if guess > secret {
+        1
+    } else {
+        -1
+    }
+}
 
-    // Strings are mutable
-    s.push_str("4567");
-    println!("My string number: {}", s);
-}  
+fn main(){
+    let secret = 42;
+    let mut guess = 30;
+    let mut attempts = 0;
+
+
+    loop {
+        attempts += 1;
+        match check_guess(guess, secret){
+            0=> {
+                println!("{} is correct! You guess it in {} attempts!", guess, attempts);
+                break;
+            }
+            1 => println!("{} is too high!", guess),
+            -1 => println!("{} is too low!", guess),
+            _ => {}
+        }
+        guess += 1;
+    }
+}
