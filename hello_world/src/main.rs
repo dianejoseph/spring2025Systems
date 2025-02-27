@@ -1,19 +1,14 @@
+use std::fs::File;
+use std::io::Write;
+
 fn main(){
-    let x = 3;
+    File::create("my_files/example.txt").unwrap();
+    println!("{:?}", file);
+    File::create("my_files/example1.txt").unwrap();
+    println!("{:?}", file);
+    
+    // writeln!(file, "Hello, Rust file operations!").unwrap();
+    // writeln!(file, "This is a new line.").unwrap();
 
-    if rem = x%3;
 
-    if rem == 0 {
-        println!("Divisible");
-    } else if rem == 1 {
-        println!("Remainder = {}", rem);
-    }
 }
-
-fn main(){
-    let x = true;
-
-    match x {
-        true => println!("True");
-        
-    }

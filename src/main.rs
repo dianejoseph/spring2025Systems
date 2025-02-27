@@ -1,32 +1,13 @@
-// Assignment 3
+use std::fs::File;
+use std::io::Write;
 
-fn check_guess(guess: i32, secret: i32) -> i32 {
-    if guess == secret {
-        0
-    } else if guess > secret {
-        1
-    } else {
-        -1
-    }
-}
+//fn create_and_write_to_file() {
+    //let mut file = File::create("my_files/example.txt").unwrap();
+    //writeln!(file, "Hello, Rust file operations!").unwrap();
+    //writeln!(file, "This is a new line.").unwrap();
+//}
 
-fn main(){
-    let secret = 42;
-    let mut guess = 30;
-    let mut attempts = 0;
-
-
-    loop {
-        attempts += 1;
-        match check_guess(guess, secret){
-            0=> {
-                println!("{} is correct! You guess it in {} attempts!", guess, attempts);
-                break;
-            }
-            1 => println!("{} is too high!", guess),
-            -1 => println!("{} is too low!", guess),
-            _ => {}
-        }
-        guess += 1;
-    }
+fn main() {
+    let mut file = File::create("my_files/example.txt").unwrap();
+    writeln!(file, "Hello, Rust file operations!").unwrap();
 }
