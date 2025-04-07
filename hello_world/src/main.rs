@@ -1,14 +1,9 @@
-use std::fs::File;
-use std::io::Write;
+use std::process::Command;
 
-fn main(){
-    File::create("my_files/example.txt").unwrap();
-    println!("{:?}", file);
-    File::create("my_files/example1.txt").unwrap();
-    println!("{:?}", file);
-    
-    // writeln!(file, "Hello, Rust file operations!").unwrap();
-    // writeln!(file, "This is a new line.").unwrap();
+fn executing_os_commands_linux() {
+    let output = Command::new("ls")
+        .arg("-l")
+        let r = output.output().expect("Failed to execute command");
 
-
+    //println!("Command output: {}", String::from_utf8_lossy(&output.stdout));
 }
