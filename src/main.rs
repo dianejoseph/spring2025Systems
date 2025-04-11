@@ -20,25 +20,24 @@ struct SP500{
 impl Pricing for Bitcoin {
     fn fetch_to_price(&mut self){
         let url = "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd";
-        let res = ureq::get(url).call(); //.unwrap().into_string().unwrap();
-        // let parsed: serde_json::Value = serde_json::from_str(&res).unwrap();
+        let res = ureq::get(url).call();
         
-        // if let Some(price) = parsed["bitcoin"]["usd"].as_f64(){
-            // self.price = price;
-        // } else {
-          //  println!("Failed to parse Bitcoin price.");
-          if let Ok(response) = res.into_string() {
-                let parsed: serde_json::Value = serde_json::from_str(&response).unwrap_or_default();
+        // Handling the result to get the response and then into_string on Response
+        if let Ok(response) = res {
+            if let Ok(body) = response.into_string() {
+                let parsed: serde_json::Value = serde_json::from_str(&body).unwrap_or_default();
                 if let Some(price) = parsed["bitcoin"]["usd"].as_f64() {
                     self.price = price;
                 } else {
                     println!("Failed to parse Bitcoin price.");
                 }
             } else {
-                println!("Bitcoin API call failed.");
+                println!("Failed to read Bitcoin response body.");
             }
-        } 
-    
+        } else {
+            println!("Bitcoin API error: {:?}", res.err());
+        }
+    }
 
     fn save_to_file(&self){
         let mut file = OpenOptions::new()
@@ -48,21 +47,16 @@ impl Pricing for Bitcoin {
             .unwrap();
         writeln!(file, "Bitcoin: ${:.2}", self.price).unwrap();
     }
-
 }
-    
-    
-    
+
 impl Pricing for Ethereum {
     fn fetch_to_price(&mut self){
-        let url = "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd";
-        let res = ureq::get(url).call();//.unwrap().into_string().unwrap();
-        // let parsed: serde_json::Value = serde_json::from_str(&res).unwrap();
+        let url = "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd";
+        let res = ureq::get(url).call();
         
         if let Ok(response) = res {
             if let Ok(body) = response.into_string() {
-                let parsed: serde_json::Value =
-                    serde_json::from_str(&body).unwrap_or_default();
+                let parsed: serde_json::Value = serde_json::from_str(&body).unwrap_or_default();
                 if let Some(price) = parsed["ethereum"]["usd"].as_f64() {
                     self.price = price;
                 } else {
@@ -75,7 +69,6 @@ impl Pricing for Ethereum {
             println!("Ethereum API error: {:?}", res.err());
         }
     }
-    
 
     fn save_to_file(&self){
         let mut file = OpenOptions::new()
@@ -86,6 +79,7 @@ impl Pricing for Ethereum {
         writeln!(file, "Ethereum: ${:.2}", self.price).unwrap();
     }
 }
+
 
 impl Pricing for SP500 {
     fn fetch_to_price(&mut self){
