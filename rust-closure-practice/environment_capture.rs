@@ -1,4 +1,4 @@
-fn track changes(){
+fn track_changes(){
     let mut tracker = 0;
     let mut update = || {
         tracker += 1;

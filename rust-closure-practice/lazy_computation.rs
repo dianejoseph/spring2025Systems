@@ -28,23 +28,24 @@ where
             None => {
                 println!("Computing (this will take 2 seconds)...");
                 thread::sleep(Duration::from_secs(2));
-                self.value = Some(result.clone());
+                let result = (self.calculation)();  // Execute the closure
+                self.value = Some(result.clone());  // Cache the result
                 result
             }
         }
     }
 }
 
-fn main(){
-    let mut cache = ComputeCache::new(||{
+fn main() {
+    let mut cache = ComputeCache::new(|| {
         println!("Computing (this will take 2 seconds)...");
         thread::sleep(Duration::from_secs(2));
-        "Hello world!".to_string()
+        "Hello, world!".to_string()
     });
 
-    println!("First call: ");
+    println!("First call:");
     println!("Result: {}", cache.get_result());
-
-    println!("\nSecond call: ");
-    println("Result (cached): {}", cache.get_result());
+    
+    println!("\nSecond call:");
+    println!("Result (cached): {}", cache.get_result());
 }

@@ -1,4 +1,4 @@
-fn process_vector<F>(vec: Vc<i32>, f:F)-> Vec<i32>
+fn process_vector<F>(vec: Vec<i32>, f:F)-> Vec<i32>
 where
     F: Fn(i32)-> i32,
 {
